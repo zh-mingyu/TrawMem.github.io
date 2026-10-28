@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="TrawMem: Reframing Agent Memory as Task-Oriented Role-Adaptive Workspaces (ICLR 2027)">
+  <meta property="og:title"
+    content="TrawMem: Reframing Agent Memory as Task-Oriented Role-Adaptive Workspaces" />
+  <meta property="og:description"
+    content="TrawMem reframes LLM agent memory from relevance-based retrieval to task-oriented role-adaptive workspaces. ICLR 2027." />
+  <meta property="og:url" content="https://zh-mingyu.github.io/TrawMem.github.io/" />
+  <meta property="og:image" content="https://zh-mingyu.github.io/TrawMem.github.io/static/images/banner.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:title"
+    content="TrawMem: Reframing Agent Memory as Task-Oriented Role-Adaptive Workspaces">
+  <meta name="twitter:description"
+    content="Task-oriented role-adaptive workspaces for LLM agent memory. ICLR 2027.">
+  <meta name="twitter:image" content="https://zh-mingyu.github.io/TrawMem.github.io/static/images/banner.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="keywords" content="agent memory, long-term memory, LLM agents, task-oriented roles, workspace, LoCoMo, MemGallery">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>TrawMem: Reframing Agent Memory as Task-Oriented Role-Adaptive Workspaces</title>
+  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-carousel.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+
+<body>
+  <a id="top"></a>
+
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="#top"><strong>TrawMem</strong></a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+        <a class="navbar-item" href="#abstract">Abstract</a>
+        <a class="navbar-item" href="#method">Method</a>
+        <a class="navbar-item" href="#results">Results</a>
+        <a class="navbar-item" href="#ablation">Ablation</a>
+        <a class="navbar-item" href="#bibtex">BibTeX</a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">More Research</a>
+          <div class="navbar-dropdown research-dropdown">
+            <div class="navbar-item task-label">Memory &amp; Agents</div>
+            <a class="navbar-item" href="https://github.com/zh-mingyu/Traw-Mem" target="_blank">
+              TrawMem (ICLR'27)
+            </a>
+            <a class="navbar-item" href="https://zh-mingyu.github.io/HINT.github.io/" target="_blank">
+              HINT (ICASSP'26)
+            </a>
+            <hr class="navbar-divider">
+            <div class="navbar-item task-label">Composed Image Retrieval</div>
+            <a class="navbar-item" href="https://lee-zixu.github.io/TEMA.github.io/" target="_blank">
+              TEMA (ACL'26)
+            </a>
+            <a class="navbar-item" href="https://lee-zixu.github.io/ConeSep.github.io/" target="_blank">
+              ConeSep (CVPR'26)
+            </a>
+            <a class="navbar-item" href="https://zhihfu.github.io/Air-Know.github.io/" target="_blank">
+              Air-Know (CVPR'26)
+            </a>
+            <a class="navbar-item" href="https://lee-zixu.github.io/COMBINER.github.io/" target="_blank">
+              COMBINER (TIP'26)
+            </a>
+            <a class="navbar-item" href="https://lee-zixu.github.io/HABIT.github.io/" target="_blank">
+              HABIT (AAAI'26)
+            </a>
+            <a class="navbar-item" href="https://lee-zixu.github.io/ReTrack.github.io/" target="_blank">
+              ReTrack (AAAI'26)
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <img src="static/images/logo.png" alt="TrawMem logo" style="width: 440px; max-width: 90%; margin-bottom: 1.2rem;">
+            <h1 class="title is-2 publication-title">TrawMem: Reframing Agent Memory as Task-Oriented
+              Role-Adaptive Workspaces</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://zh-mingyu.github.io/" target="_blank" class="author-link">Mingyu Zhang<sup>1</sup></a>,
+              </span>
+              <span class="author-block">
+                <a href="https://lee-zixu.github.io/" target="_blank" class="author-link">Zixu Li<sup>1,&#8224;</sup></a>,
+              </span>
+              <span class="author-block">
+                <a href="https://zhihfu.github.io/" target="_blank" class="author-link">Zhiheng Fu<sup>1</sup></a>,
+              </span>
+              <span class="author-block">
+                <a href="https://zivchen-ty.github.io/" target="_blank" class="author-link">Zhiwei Chen<sup>1</sup></a>,
+              </span>
+              <span class="author-block">
+                <a href="https://jinhe-bi.github.io/" target="_blank" class="author-link">Jinhe Bi<sup>2</sup></a>,
+              </span>
+              <span class="author-block">
+                <a href="https://faculty.sdu.edu.cn/huyupeng1/zh_CN/index.htm" target="_blank"
+                  class="author-link">Yupeng Hu<sup>1,&#9993;</sup></a>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>School of Software, Shandong University</span>
+              <span class="author-block"><sup>2</sup>National University of Singapore</span>
+              <br>
+              <span class="eql-cntrb"><small><sup>&#8224;</sup>Project leader &nbsp;&nbsp; <sup>&#9993;</sup>Corresponding author</small></span>
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2610.36918" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/zh-mingyu/Traw-Mem" target="_blank"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#bibtex" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-quote-left"></i></span>
+                    <span>BibTeX</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div class="is-size-6" style="margin-top: 0.6rem;">
+              <span class="tag is-light is-medium">ICLR 2027</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Abstract -->
+  <section class="hero is-light" id="abstract">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                Large language model (LLM) agents rely on memory systems to leverage long-term interactions, yet
+                existing systems typically retrieve memories based on their relevance to the current query and use
+                them as contextual evidence. However, relevance alone does not characterize how a memory contributes
+                to task solving: the same memory may serve different roles across tasks, such as directly supporting
+                the answer or linking to complementary memories with weaker semantic relevance but necessary
+                information. We therefore reframe agent memory systems as <b>Task-Oriented Role-Adaptive
+                Workspaces</b>, where memories are selected and organized by their task-oriented roles and relations.
+                Based on this view, we propose <b>TrawMem</b>, which organizes interaction histories into local threads
+                and constructs task-oriented workspaces by assigning roles and jointly selecting complementary
+                memories. Experiments on <b>LoCoMo</b> and <b>MemGallery</b> with four open- and closed-source backbones
+                show consistent improvements over representative memory systems, with macro-F1 gains of
+                <b>2.23–3.14</b> points. On LoCoMo, TrawMem improves the LLM-Judge score over SimpleMem by
+                <b>4.07</b> and <b>4.31</b> percentage points on Qwen3.5-9B and DeepSeek-V4-Flash, respectively,
+                while requiring approximately <b>12.8%</b> and <b>5.1%</b> fewer context tokens. Code is available at
+                <a href="https://github.com/zh-mingyu/Traw-Mem" target="_blank">github.com/zh-mingyu/Traw-Mem</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Motivation / overview -->
+  <section class="hero is-small" id="overview">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h2 class="title is-3">Same Memory, Different Roles</h2>
+        <p class="subtitle is-6" style="max-width: 900px; margin: 0 auto 1.2rem;">
+          A memory may directly answer one task, only bridge another, or merely supply temporal context. TrawMem
+          therefore selects and organizes memories by the <i>roles</i> they play for the current task, rather than
+          by relevance alone.
+        </p>
+        <img src="static/images/overview.png" alt="TrawMem overview" style="width: 100%; max-width: 980px;">
+        <p class="subtitle is-6" style="max-width: 980px; margin: 0.8rem auto 0;">
+          <b>Figure 1.</b> (a) The same memory plays different task-dependent roles. (b) Existing systems retrieve a
+          sequence of memory units; TrawMem constructs a task-oriented workspace, a query-local subgraph over the
+          persistent memory structure.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Method -->
+  <section class="hero is-light" id="method">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Method</h2>
+        <div class="has-text-centered">
+          <img src="static/images/framework.png" alt="TrawMem framework" style="width: 100%; max-width: 1100px;">
+          <p class="subtitle is-6" style="max-width: 1000px; margin: 0.8rem auto 1.6rem;">
+            <b>Figure 2.</b> <b>Stage 1</b> organizes the interaction history into local threads and a thread graph.
+            <b>Stage 2</b> localizes a thread neighborhood for the current task, estimates the task's role demand,
+            assigns query-local roles to candidate memories, and assembles a bounded workspace for the answer model.
+          </p>
+        </div>
+
+        <div class="content" style="max-width: 900px; margin: 0 auto;">
+          <ul>
+            <li><b>Source-faithful local threads.</b> Interaction histories are segmented into contiguous event
+              threads, each with a routing synopsis and an ordered ledger of the original turns. Turns are never
+              rewritten into query-specific semantic memories.</li>
+            <li><b>Persistent sparse thread graph.</b> Threads are connected by chronological and semantic relations,
+              so retrieval traverses a structure instead of a flat vector index.</li>
+            <li><b>One route + bounded expansion.</b> A single routing pass localizes the task-relevant neighborhood
+              and expands it under hop-count and neighborhood-size limits.</li>
+            <li><b>Query-local roles.</b> Candidate memories receive Anchor / Bridge / Context roles conditioned on
+              the query's demand; roles are frozen for the workspace and discarded afterwards.</li>
+            <li><b>Structured coverage selection.</b> Workspace construction maximizes a monotone submodular
+              coverage objective under a budget, preferring complementary over redundant memories.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="hero is-small" id="results">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h2 class="title is-3">Results</h2>
+
+        <h3 class="title is-4" style="margin-top: 1.5rem;">LoCoMo</h3>
+        <img src="static/images/results-locomo.png" alt="LoCoMo results" style="width: 100%; max-width: 1000px;">
+        <p class="subtitle is-6" style="max-width: 980px; margin: 0.8rem auto 0;">
+          <b>Table 1.</b> Macro-averaged LoCoMo results over four question types. F1, BLEU-1 (B-1), and LLM-Judge (J)
+          are reported. Bold / underlined values are the best / second-best results.
+        </p>
+        <div class="content has-text-centered" style="max-width: 900px; margin: 1rem auto 0;">
+          <p>TrawMem achieves the best average F1, B-1, and J under all four backbones — up to
+            <b>+3.14</b> macro-F1 over the second-best baseline, with the largest gains on Temporal questions.</p>
+        </div>
+
+        <h3 class="title is-4" style="margin-top: 2.5rem;">MemGallery</h3>
+        <img src="static/images/results-memgallery.png" alt="MemGallery results" style="width: 100%; max-width: 700px;">
+        <p class="subtitle is-6" style="max-width: 900px; margin: 0.8rem auto 0;">
+          <b>Table 2.</b> Macro-averaged MemGallery results for four answer backbones over nine question types.
+        </p>
+        <div class="content has-text-centered" style="max-width: 900px; margin: 1rem auto 0;">
+          <p>Across all backbones TrawMem ranks first in F1, B-1, and J, with gains of
+            <b>+0.30–5.45 / +1.36–2.96 / +0.52–4.82</b> points over the second-best baseline.</p>
+        </div>
+
+        <h3 class="title is-4" style="margin-top: 2.5rem;">Efficiency</h3>
+        <img src="static/images/results-efficiency.png" alt="Efficiency results" style="width: 100%; max-width: 820px;">
+        <p class="subtitle is-6" style="max-width: 900px; margin: 0.8rem auto 0;">
+          <b>Table 3.</b> Efficiency and answer quality on LoCoMo. Times are s/root; answer-context tokens are
+          tok/q; H is the maximum thread-neighborhood expansion depth.
+        </p>
+        <div class="content has-text-centered" style="max-width: 900px; margin: 1rem auto 0;">
+          <p>Compared with SimpleMem, TrawMem (H=3) uses <b>12.8%</b> / <b>5.1%</b> fewer answer-context tokens
+            on Qwen3.5-9B / DeepSeek-V4-Flash while scoring <b>+4.07</b> / <b>+4.31</b> J points higher.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ablation -->
+  <section class="hero is-light" id="ablation">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h2 class="title is-3">Ablation Study</h2>
+        <p class="subtitle is-6" style="max-width: 900px; margin: 0 auto 1.2rem;">
+          Six components are ablated: event thread construction, inter-thread semantic connections, neighborhood
+          expansion, task-oriented roles, structured coverage, and multi-thread selection. All variants degrade
+          performance. ΔJ = J<sub>variant</sub> − J<sub>full</sub>.
+        </p>
+        <img src="static/images/ablation-locomo.png" alt="LoCoMo ablation" style="width: 100%; max-width: 900px;">
+        <p class="subtitle is-6" style="margin: 0.6rem auto 1.6rem;">Ablation results on LoCoMo (ΔJ).</p>
+        <img src="static/images/ablation-memgallery.png" alt="MemGallery ablation" style="width: 100%; max-width: 760px;">
+        <p class="subtitle is-6" style="margin: 0.6rem auto 1.6rem;">Ablation results on MemGallery (ΔJ).</p>
+
+        <h2 class="title is-3" style="margin-top: 2rem;">Parameter Sensitivity</h2>
+        <img src="static/images/sensitivity.png" alt="Parameter sensitivity" style="width: 100%; max-width: 950px;">
+        <p class="subtitle is-6" style="max-width: 950px; margin: 0.6rem auto 0;">
+          Sensitivity to the cost weights λ<sub>m</sub>, λ<sub>r</sub> and the evidence budget B<sub>q</sub> on LoCoMo.
+          B<sub>q</sub> = 16 is the consistent optimum across all four backbones.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BibTeX -->
+  <section class="section" id="bibtex">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre><code>@inproceedings{zhang2027trawmem,
+  title     = {TrawMem: Reframing Agent Memory as Task-Oriented Role-Adaptive Workspaces},
+  author    = {Zhang, Mingyu and Li, Zixu and Fu, Zhiheng and Chen, Zhiwei and Bi, Jinhe and Hu, Yupeng},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2027},
+  note      = {arXiv:2610.36918}
+}</code></pre>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This page was built using the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic
+                Project Page Template</a>, which was adopted from the
+              <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page. This website is licensed
+              under a
+              <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons
+                Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
